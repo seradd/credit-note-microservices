@@ -1,0 +1,29 @@
+version: "2"
+services:
+  ds:
+    build: ./discovery-server/.
+    ports:
+      - 8761:8761
+  cs:
+    build: ./customer-service/.
+    ports:
+      - 8081:8081
+  css:
+    build: ./creditscore-service/.
+    ports:
+      - 8082:8082
+  ns:
+    build: ./notification-service/.
+    ports:
+      - 8083:8083
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: creditnote
+      MONGO_INITDB_ROOT_PASSWORD: creditnote
+      MONGO_INITDB_DATABASE: creditnote
+    volumes:
+      - "./mongo/db:/data/db"
